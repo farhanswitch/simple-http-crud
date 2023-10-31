@@ -1,6 +1,8 @@
 //* HANDLE MANIPULATING DATA
 
 const { readFileSync, writeFileSync } = require("fs");
+//Import Database connection
+const conn = require("../../connections/mysql");
 // Baca file
 const strData = readFileSync(process.cwd() + "/data/books.json", "utf-8");
 // convert string JSON ke JavaScript Object dan ambil data listBook serta bookID
@@ -29,6 +31,14 @@ function repoGetAllBooks() {
     // Dapatkan total buku
     total: data.length,
   };
+}
+async function repoDBGetAllBooks() {
+  try {
+    const data = await conn.promise().query("CALL sp_get_all_books()");
+    return data?.[0]?.[0];
+  } catch (error) {
+    throw error;
+  }
 }
 /**
  * Fungsi untuk mendapatkan buku dengan id tertentu
@@ -136,6 +146,7 @@ function repoDeleteBook(id) {
 // export function
 module.exports = {
   repoGetAllBooks,
+  repoDBGetAllBooks,
   repoGetBookByID,
   repoGetBookByTitle,
   repoAddBook,

@@ -1,6 +1,10 @@
 const express = require("express");
+const { config } = require("dotenv");
+config();
 const PORT = 3000;
-
+require("./connections/mysql");
+// Setup DB
+require("./temp");
 const app = express();
 
 const booksRouter = require("./modules/books/books.route");

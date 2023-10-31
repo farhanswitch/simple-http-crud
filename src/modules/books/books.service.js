@@ -8,10 +8,15 @@ const {
   repoAddBook,
   repoEditBook,
   repoDeleteBook,
+  repoDBGetAllBooks,
 } = require("./books.repository");
 
 function serviceGetAllBooks() {
   const result = repoGetAllBooks();
+  return result;
+}
+async function serviceDBGetAllBooks() {
+  const result = await repoDBGetAllBooks();
   return result;
 }
 function serviceGetBook(id) {
@@ -108,6 +113,7 @@ function serviceDeleteBook(bookID) {
 // Export function
 module.exports = {
   serviceGetAllBooks,
+  serviceDBGetAllBooks,
   serviceGetBook,
   serviceAddBook,
   serviceEditBook,

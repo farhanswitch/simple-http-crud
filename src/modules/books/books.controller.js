@@ -7,13 +7,22 @@ const {
   serviceAddBook,
   serviceEditBook,
   serviceDeleteBook,
+  serviceDBGetAllBooks,
 } = require("./books.service");
 const {
   validateGetBook,
   validateAddBook,
   validateEditBook,
 } = require("./books.validator");
-
+async function getAllBooksDBCtrl(req, res) {
+  try {
+    const result = await serviceDBGetAllBooks();
+    res.json(result);
+  } catch (error) {
+    console.log("Error getAllBooksDBCtrl ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
 function getAllBooksCtrl(req, res) {
   const result = serviceGetAllBooks();
   res.json(result);
@@ -101,6 +110,7 @@ function deleteBookCtrl(req, res) {
 // Export function
 module.exports = {
   getAllBooksCtrl,
+  getAllBooksDBCtrl,
   getBookCtrl,
   addBookCtrl,
   editBookCtrl,
