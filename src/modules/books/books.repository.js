@@ -35,7 +35,7 @@ function repoGetAllBooks() {
 async function repoDBGetAllBooks() {
   try {
     const data = await conn.promise().query("CALL sp_get_all_books()");
-    return data?.[0]?.[0];
+    return data?.[0];
   } catch (error) {
     throw error;
   }

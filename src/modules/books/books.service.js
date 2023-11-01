@@ -17,7 +17,10 @@ function serviceGetAllBooks() {
 }
 async function serviceDBGetAllBooks() {
   const result = await repoDBGetAllBooks();
-  return result;
+  return {
+    data: result[0],
+    total: result[1]?.[0]?.total,
+  };
 }
 function serviceGetBook(id) {
   const result = repoGetBookByID(id);
