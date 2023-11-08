@@ -1,0 +1,67 @@
+paths:
+  /v1/books/delete/{bookID}:
+    delete:
+      tags:
+        - Books
+      operation-id: books-delete-item
+      deprecated: false
+      parameters:
+        - in: path
+          name: bookID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the book to get
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Response when success delete book
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book deleted successfully
+              examples:
+                Success Response:
+                  value:
+                    message: Book deleted successfully
+        "400":
+          description: Response when data to delete is invalid formatted
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      [string]:
+                        type: string
+                        example: Book ID is required and must be a number.
+              examples:
+                Invalid Data Response:
+                  value:
+                    errors:
+                      bookID: Book ID is required and must be a number.
+        "404":
+          description: Response when the book doesnt exists
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book not found
+                    description: Error message
+              examples:
+                Not Found Response:
+                  value:
+                    message: Book not found

@@ -1,0 +1,104 @@
+paths:
+  /v1/books/edit:
+    put:
+      tags:
+        - Books
+      operation-id: books-edit-book
+      deprecated: false
+      requestBody:
+        description: |
+          ## Properties - Required/Optional
+          | **Properties**                    | **Data Type** | **Required/Optional** |
+          | --------------------------------- | ------------- | --------------------- |
+          | bookID                            | Number        | Required              |
+          | title                             | String        | Required              |
+          | author                            | String        | Required              |
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookID:
+                  type: number
+                  example: 1
+                  required: true
+                title:
+                  type: string
+                  example: Perahu Kertas
+                  required: true
+                author:
+                  type: string
+                  example: Dee Lestari
+                  required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Response when success edit book
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book edited successfully
+              examples:
+                Success Response:
+                  value:
+                    message: Book edited successfully
+        "400":
+          description: Response when data to update is invalid formatted
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      [string]:
+                        type: string
+                        example: Book ID is required and must be a number.
+              examples:
+                Invalid Data Response:
+                  value:
+                    errors:
+                      bookID: Book ID is required and must be a number.
+        "404":
+          description: Response when data to update is valid formatted but the book to update is not found
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book not found
+                    description: Error message
+              examples:
+                Book Not Found Response:
+                  value:
+                    message: Book not found
+        "422":
+          description: Response when data to update is valid formatted but cannot be processed
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book already exists
+                    description: Error message
+              examples:
+                No Changes Response:
+                  value:
+                    message: There is no changes
+                Duplicate Title Response:
+                  value:
+                    message: Book with same title is already exists

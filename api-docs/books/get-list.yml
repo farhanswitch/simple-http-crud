@@ -1,0 +1,56 @@
+paths:
+  /v1/books/get-list:
+    get:
+      tags:
+        - Books
+      operation-id: books-get-list
+      deprecated: false
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: |
+            A list of books
+            ## Properties - Data Type
+            | **Properties**                    | **Data Type** |
+            | --------------------------------- | ------------- |
+            | bookID                            | Number        |
+            | title                             | String        |
+            | author                            | String        |
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bookID:
+                          type: number
+                          example: 1
+                        title:
+                          type: string
+                          example: Perahu Kertas
+                        author:
+                          type: string
+                          example: Dee Lestari
+                  total:
+                    type: number
+                    example: 10
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      - bookID: 1
+                        title: Perahu Kertas
+                        author: Dee Lestari
+                      - bookID: 2
+                        title: Geez and Ann
+                        author: Rintik Sedu
+                      - bookID: 3
+                        title: Negeri 5 Menara
+                        author: Ahmad Fuadi
+                    total: 5

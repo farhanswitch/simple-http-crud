@@ -1,0 +1,80 @@
+paths:
+  /v1/books/add:
+    post:
+      tags:
+        - Books
+      operation-id: books-add-book
+      deprecated: false
+      requestBody:
+        description: |
+          ## Properties - Required/Optional
+          | **Properties**                    | **Data Type** | **Required/Optional** |
+          | --------------------------------- | ------------- | --------------------- |
+          | title                             | String        | Required              |
+          | author                            | String        | Required              |
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Perahu Kertas
+                  required: true
+                author:
+                  type: string
+                  example: Dee Lestari
+                  required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Response when success add new book
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book saved successfully
+              examples:
+                Success Response:
+                  value:
+                    message: Book saved successfully
+        "400":
+          description: Response when data to add is invalid formatted
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      [string]:
+                        type: string
+                        example: Book Title must contains letters, numbers, and spaces only
+              examples:
+                Invalid Data Response:
+                  value:
+                    errors:
+                      title: Book Title must contains letters, numbers, and spaces only
+        "422":
+          description: Response when the book with same data is already exists
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Book already exists
+                    description: Error message
+              examples:
+                Cannot Process Response:
+                  value:
+                    message: Book already exists
