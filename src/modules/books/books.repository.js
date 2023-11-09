@@ -12,11 +12,15 @@ const { data, bookID } = JSON.parse(strData);
  * @property {string} title
  * @property {string} author
  *
+ *
+ * @typedef {Object} GetAllBooksResponse
+ * @property {Array<BookType>} data
+ * @property {number} total
  */
 
 /**
  * Fungsi untuk mendapatkan semua buku yang tersedia
- * @returns {Array<BookType>}
+ * @returns {GetAllBooksResponse}
  */
 function repoGetAllBooks() {
   // Baca file
